@@ -1,0 +1,10 @@
+[
+    {
+    "model": "nashvolapi.eventvolunteers",
+    "pk": 1,
+    "fields": {
+        "volunteer": 1,
+        "event": 1
+    }
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "model": "nashvolapi.volunteer",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Me"
+        }
+    }
+]
