@@ -1,0 +1,23 @@
+[
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 1,
+        "fields": {
+            "eventType": "building"
+        }
+    },
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 2,
+        "fields": {
+            "eventType": "planting"
+        }
+    },
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 3,
+        "fields": {
+            "eventType": "organizing donations"
+        }
+    }
+]
