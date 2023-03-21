@@ -1,13 +1,15 @@
 [
     {
-        "model": "nashvolapi.event",
+        "model": "nashvolapi.Event",
         "pk": 1,
         "fields": {
             "organizer": 1,
             "name": "food pantry organization",
+            "details": "30 volunteers need",
             "date": "2023-07-16",
             "location": "ze gulch",
             "eventType": 3
+
         }
     },
     {
@@ -16,6 +18,7 @@
         "fields": {
             "organizer": 1,
             "name": "homeless packages set up",
+            "details": "setting up ",
             "date": "2023-06-16",
             "location": "downtown",
             "eventType": 3
