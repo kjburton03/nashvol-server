@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from nashvolapi.views import register_user, login_user, EventTypeView, EventView
+from nashvolapi.views import register_user, login_user, EventTypeView, EventView, EventVolunteerView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'eventTypes', EventTypeView, 'eventType')
 router.register(r'events', EventView, 'event')
+router.register(r'eventVolunteers', EventVolunteerView, 'eventVolunteer')
 
 urlpatterns = [
     path('register', register_user),
