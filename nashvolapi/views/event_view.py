@@ -48,11 +48,10 @@ class EventView(ViewSet):
         # type = GameType.objects.get(pk=request.data["type"])
 
         event = Event.objects.create(
-            # game=request.data["game"],
+
             location=request.data["location"],
             date=request.data["date"],
-            # start_time=request.data["start_time"],
-            # end_time=request.data["end_time"],
+            name=request.data["name"],
             details=request.data["details"],
             # attendees=request.data["attendees"],
             organizer=organizer,
@@ -60,6 +59,34 @@ class EventView(ViewSet):
         )
         serializer = EventSerializer(event)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, pk):
+        organizer = Volunteer.objects.get(user=request.auth.user)
+        eventType = EventType.objects.get(pk=request.data["eventType"])
+
+        event = Event.objects.get(pk=pk)
+        event.name = request.data["name"]
+        event.location = request.data["location"]
+        event.date = request.data["date"]
+        event.details = request.data["details"]
+        event.organizer=organizer
+        event.eventType=eventType
+
+
+        event.save()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+    def destroy(self, request, pk):
+        """Handle DELETE requests for a game
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        
+        event = Event.objects.get(pk=pk)
+        event.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 # class OrganizerSerializer(serializers.ModelSerializer):
 #     """JSON serializer for organizers
 #     """
