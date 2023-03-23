@@ -28,12 +28,12 @@ class EventView(ViewSet):
             Response -- JSON serialized list of events
         """
         events = Event.objects.all()
-        # volunteer = Volunteer.objects.get(user=request.auth.user)
-
+        volunteer = Volunteer.objects.get(user=request.auth.user)
+        
         # # Set the `joined` property on every event
-        # for event in events:
+        for event in events:
         #     # Check to see if the gamer is in the attendees list on the event
-        #     event.joined = volunteer in event.attendees.all()
+            event.joined = volunteer in event.eventVolunteers.all()
 
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
@@ -87,6 +87,21 @@ class EventView(ViewSet):
         event = Event.objects.get(pk=pk)
         event.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['post'], detail=True)
+    def signup(self, request, pk):
+        """Post request for a user to sign up for an event"""
+        volunteer = Volunteer.objects.get(user=request.auth.user)
+        event = Event.objects.get(pk=pk)
+        event.eventVolunteers.add(volunteer)
+        return Response({'message': 'volunteer added'}, status=status.HTTP_201_CREATED)
+    @action(methods=['delete'], detail=True)
+    def leave(self, request, pk):
+        """Delete request for a user to leave an event"""
+        volunteer = Volunteer.objects.get(user=request.auth.user)
+        event = Event.objects.get(pk=pk)
+        event.eventVolunteers.remove(volunteer)
+        return Response({'message': 'Gamer removed'}, status=status.HTTP_204_NO_CONTENT)
 # class OrganizerSerializer(serializers.ModelSerializer):
 #     """JSON serializer for organizers
 #     """
@@ -94,12 +109,13 @@ class EventView(ViewSet):
 #         model = Volunteer
 #         fields = ('full_name',)
 
-# class VolunteerSerializer(serializers.ModelSerializer):
-#     """JSON serializer for attendees
-#     """
-#     class Meta:
-#         model = Volunteer
-#         fields = ('full_name',)
+class VolunteerSerializer(serializers.ModelSerializer):
+    """JSON serializer for attendees
+    """
+    class Meta:
+        model = Volunteer
+        fields = ('full_name',)
+
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -108,4 +124,4 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'organizer', 'name', 'details', 'date', 'location', 'eventType', 'eventVolunteers'  )
+        fields = ('id', 'organizer', 'name', 'details', 'date', 'location', 'eventType', 'eventVolunteers', 'joined'  )

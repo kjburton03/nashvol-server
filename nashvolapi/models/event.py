@@ -10,3 +10,15 @@ class Event(models.Model):
     eventType = models.ForeignKey('EventType', null=False, on_delete=models.CASCADE)
 
     eventVolunteers = models.ManyToManyField('Volunteer', through='EventVolunteers')
+
+    @property
+    def joined(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        return self.__joined
+    @joined.setter
+    def joined(self, value):
+        self.__joined = value
