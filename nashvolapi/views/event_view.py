@@ -119,12 +119,16 @@ class VolunteerSerializer(serializers.ModelSerializer):
         model = Volunteer
         fields = ('full_name',)
 
-
+class EventTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventType
+        fields = ('id', 'eventType',)
 
 class EventSerializer(serializers.ModelSerializer):
     """JSON serializer for events
     """
-
+    eventType = EventTypeSerializer()
     class Meta:
         model = Event
         fields = ('id', 'organizer', 'name', 'details', 'date', 'location', 'eventType', 'eventVolunteers', 'joined', 'organizerOfEvent'  )
+    
