@@ -3,21 +3,50 @@
         "model": "nashvolapi.eventType",
         "pk": 1,
         "fields": {
-            "eventType": "building"
+            "eventType": "Building"
         }
     },
     {
         "model": "nashvolapi.eventType",
         "pk": 2,
         "fields": {
-            "eventType": "planting"
+            "eventType": "Planting"
         }
     },
     {
         "model": "nashvolapi.eventType",
         "pk": 3,
         "fields": {
-            "eventType": "organizing donations"
+            "eventType": "Organizing"
         }
+    },
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 4,
+        "fields": {
+            "eventType": "Landscaping"
+        }
+    },
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 5,
+        "fields": {
+            "eventType": "Children & youth"
+        } 
+    },
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 6,
+        "fields": {
+            "eventType": "Education"
+        } 
+    },
+    {
+        "model": "nashvolapi.eventType",
+        "pk": 7,
+        "fields": {
+            "eventType": "Animals"
+        } 
     }
+
 ]
