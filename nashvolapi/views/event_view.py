@@ -29,11 +29,14 @@ class EventView(ViewSet):
         """
         events = Event.objects.all()
         volunteer = Volunteer.objects.get(user=request.auth.user)
+        organizerOfEvent = Volunteer.objects.get(user=request.auth.user)
         
         # # Set the `joined` property on every event
         for event in events:
         #     # Check to see if the gamer is in the attendees list on the event
             event.joined = volunteer in event.eventVolunteers.all()
+            if organizerOfEvent == event.organizer:
+                    event.organizerOfEvent = True
 
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
@@ -102,12 +105,12 @@ class EventView(ViewSet):
         event = Event.objects.get(pk=pk)
         event.eventVolunteers.remove(volunteer)
         return Response({'message': 'Gamer removed'}, status=status.HTTP_204_NO_CONTENT)
-# class OrganizerSerializer(serializers.ModelSerializer):
-#     """JSON serializer for organizers
-#     """
-#     class Meta:
-#         model = Volunteer
-#         fields = ('full_name',)
+class OrganizerSerializer(serializers.ModelSerializer):
+    """JSON serializer for organizers
+    """
+    class Meta:
+        model = Volunteer
+        fields = ('full_name',)
 
 class VolunteerSerializer(serializers.ModelSerializer):
     """JSON serializer for attendees
@@ -124,4 +127,4 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'organizer', 'name', 'details', 'date', 'location', 'eventType', 'eventVolunteers', 'joined'  )
+        fields = ('id', 'organizer', 'name', 'details', 'date', 'location', 'eventType', 'eventVolunteers', 'joined', 'organizerOfEvent'  )
