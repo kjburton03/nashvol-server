@@ -10,7 +10,7 @@ A web application to help connect communities in need with local people who want
 
 Javascript | React | HTML5 | CSS | GIT | Github | VScode
 
-[Front end code](https://github.com/kjburton03/nashvol-server)
+[Front end code](https://github.com/kjburton03/nashvol-client)
 
 
 ## Back end technologies 
